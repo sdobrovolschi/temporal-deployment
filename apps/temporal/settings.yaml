@@ -25,6 +25,21 @@ server:
           maxConns: 10
           maxIdleConns: 5
           maxConnLifetime: 1h
+#  https://docs.temporal.io/references/dynamic-configuration
+#  https://community.temporal.io/t/scaling-task-queues-correlation-between-numhistoryshards-taskqueuepartitions-number-of-matching-service-hosts/6909/17
+  dynamicConfig:
+    matching.numTaskqueueReadPartitions:
+    - constraints:
+        namespace: temporal-system
+        taskQueueName: tasks
+        taskType: Activity
+      value: 8
+    matching.numTaskqueueWritePartitions:
+    - constraints:
+        namespace: temporal-system
+        taskQueueName: tasks
+        taskType: Activity
+      value: 8
 cassandra:
   enabled: false
 elasticsearch:
