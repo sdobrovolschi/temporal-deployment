@@ -1,5 +1,6 @@
 server:
   config:
+    logLevel: "debug"
     persistence:
       default:
         driver: sql
