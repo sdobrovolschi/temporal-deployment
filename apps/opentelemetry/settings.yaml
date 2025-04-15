@@ -1,0 +1,29 @@
+mode: deployment
+
+config:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http: null
+    jaeger: null
+    prometheus: null
+    zipkin: null
+  service:
+    pipelines:
+      traces:
+        receivers:
+          - otlp
+        processors:
+          - memory_limiter
+          - batch
+        exporters:
+          - otlp
+      metrics: null
+      logs: null
+  exporters:
+    otlp:
+      endpoint: jaeger-collector.temporal.svc.cluster.local:4317
+      tls:
+        insecure: true
