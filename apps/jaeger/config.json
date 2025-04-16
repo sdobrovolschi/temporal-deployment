@@ -1,0 +1,12 @@
+{
+  "app": "jaeger",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "temporal"
+  },
+  "chart": {
+    "name": "jaeger",
+    "version": "4.0.0",
+    "repository": "ghcr.io/sdobrovolschi/helm-charts"
+  }
+}
