@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: job
+  namespace: argo-events
+spec:
+  dependencies:
+  - name: event
+    eventSourceName: webhook
+    eventName: example
+  triggers:
+  - template:
+      name: k8s-job-trigger
+      k8s:
+        operation: create
+        source:
+          resource:
+            apiVersion: batch/v1
+            kind: Job
+            metadata:
+              generateName: cleaner-
+            spec:
+              backoffLimit: 2
+              ttlSecondsAfterFinished: 30
+              template:
+                spec:
+                  containers:
+                  - name: cleaner
+                    image: busybox
+                    command: ["sh", "-c"]
+                    args:
+                    - echo "Customer=$CUSTOMER_ID"
+                    env:
+                    - name: CUSTOMER_ID
+                      value: ""
+                  restartPolicy: Never
+    parameters:
+    - src:
+        dependencyName: event
+        dataKey: body.customerId
+      dest: spec.template.spec.containers.0.env.0.value
+  template:
+    serviceAccountName: argo-events
+  replicas: 1
