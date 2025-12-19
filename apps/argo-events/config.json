@@ -1,0 +1,12 @@
+{
+  "app": "argo-events",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "argo-events"
+  },
+  "chart": {
+    "name": "argo-events",
+    "version": "2.4.19",
+    "repository": "https://argoproj.github.io/argo-helm"
+  }
+}

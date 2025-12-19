@@ -1,0 +1,4 @@
+global:
+  image:
+    repository: quay.io/argoproj/argo-events
+    tag: v1.9.9
