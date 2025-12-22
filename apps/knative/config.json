@@ -1,0 +1,12 @@
+{
+  "app": "knative",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "knative"
+  },
+  "chart": {
+    "name": "knative-operator",
+    "version": "1.20.0",
+    "repository": "https://knative.github.io/operator"
+  }
+}
