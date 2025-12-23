@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- cluster-operator-v2.19.1.yaml
+- cert-manager-v1.19.4.yaml
+- messaging-topology-operator-with-certmanager-v1.18.3.yaml
