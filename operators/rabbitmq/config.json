@@ -1,0 +1,7 @@
+{
+  "name": "rabbitmq-operator",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "rabbitmq-operator"
+  }
+}
