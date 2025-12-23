@@ -1,0 +1,12 @@
+{
+  "app": "rabbitmq",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "temporal"
+  },
+  "chart": {
+    "name": "rabbitmq-cluster-operator",
+    "version": "4.4.34",
+    "repository": "https://charts.bitnami.com/bitnami"
+  }
+}
