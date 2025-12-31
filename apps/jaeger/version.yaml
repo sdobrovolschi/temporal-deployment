@@ -1,4 +1,0 @@
-allInOne:
-  image:
-    repository: jaegertracing/jaeger
-    tag: 2.5.0
