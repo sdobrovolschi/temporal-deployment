@@ -1,5 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- https://github.com/rabbitmq/cluster-operator/releases/download/v2.18.0/cluster-operator.yml
-
+- cluster-operator-v2.18.0.yaml
+- cert-manager-v1.3.1.yaml
+- messaging-topology-operator-with-certmanager-v1.18.2.yaml
