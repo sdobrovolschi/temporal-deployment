@@ -1,0 +1,11 @@
+{
+  "appName": "rabbitmq-cluster-operator",
+  "userGivenName": "rabbitmq-cluster-operator",
+  "destNamespace": "rabbitmq",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/rabbitmq-cluster-operator/overlays/temporal",
+  "srcRepoURL": "https://github.com/sdobrovolschi/temporal-deployment.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
