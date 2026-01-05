@@ -1,0 +1,7 @@
+{
+  "name": "knative-operator",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "knative-operator"
+  }
+}
