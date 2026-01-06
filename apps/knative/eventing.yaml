@@ -1,0 +1,58 @@
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+  name: knative-eventing
+  namespace: knative-eventing
+spec:
+  source:
+    rabbitmq:
+      enabled: true
+  config:
+    logging:
+      loglevel.controller: "warn"
+      loglevel.receive-adapter: "warn"
+      loglevel.webhook: "warn"
+      zap-logger-config: |
+        {
+          "level": "warn",
+          "development": false,
+          "outputPaths": ["stdout"],
+          "errorOutputPaths": ["stderr"],
+          "encoding": "json",
+          "encoderConfig": {
+            "timeKey": "ts",
+            "levelKey": "level",
+            "nameKey": "logger",
+            "callerKey": "caller",
+            "messageKey": "msg",
+            "stacktraceKey": "stacktrace",
+            "lineEnding": "",
+            "levelEncoder": "",
+            "timeEncoder": "iso8601",
+            "durationEncoder": "",
+            "callerEncoder": ""
+          }
+        }
+  workloads:
+    - name: eventing-controller
+      replicas: 2
+      resources:
+        - container: eventing-controller
+          requests:
+            cpu: 25m
+            memory: 32Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
+    - name: imc-dispatcher
+      replicas: 2
+      resources:
+        - container: imc-dispatcher
+          requests:
+            cpu: 25m
+            memory: 32Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
+    - name: job-sink
+      replicas: 0
