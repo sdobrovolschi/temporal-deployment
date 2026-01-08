@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    argocd-autopilot.argoproj-labs.io/default-dest-server: https://kubernetes.default.svc
+    argocd.argoproj.io/sync-options: PruneLast=true
+    argocd.argoproj.io/sync-wave: "-2"
+  name: infra
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: infra project
+  destinations:
+  - namespace: '*'
+    server: '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  name: infra
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: [ "missingkey=error" ]
+  generators:
+  - git:
+      repoURL: https://github.com/sdobrovolschi/temporal-deployment.git
+      revision: HEAD
+      files:
+      - path: operators/**/config.json
+      - path: apps/**/config.json
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd-autopilot
+        app.kubernetes.io/name: '{{ .name }}'
+      name: '{{ .name }}'
+      namespace: argocd
+    spec:
+      project: infra
+      destination:
+        name: '{{ .destination.name }}'
+        namespace: '{{ .destination.namespace }}'
+      source:
+        repoURL: https://github.com/sdobrovolschi/temporal-deployment.git
+        path: '{{ .path.path }}'
+      ignoreDifferences:
+      - kind: Application
+        group: argoproj.io
+        jsonPointers:
+        - /status
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - allowEmpty=true
+        - ApplyOutOfSyncOnly=true
+        - CreateNamespace=true
+        - FailOnSharedResource=true
+        - PruneLast=true
