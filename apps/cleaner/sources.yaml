@@ -1,0 +1,54 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: RabbitmqSource
+metadata:
+  name: rabbitmq
+  namespace: rabbitmq-system
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 25m
+    rabbitmq.eventing.knative.dev/memory-request: 32Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 50m
+    rabbitmq.eventing.knative.dev/memory-limit: 64Mi
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  rabbitmqResourcesConfig:
+    queueName: "queue-job1"
+    parallelism: 10
+    predeclared: true
+  delivery:
+    retry: 5
+    backoffPolicy: "linear"
+    backoffDelay: "PT1S"
+  sink:
+    ref:
+      apiVersion: sinks.knative.dev/v1alpha1
+      kind: JobSink
+      name: event-display
+
+---
+apiVersion: sources.knative.dev/v1alpha1
+kind: RabbitmqSource
+metadata:
+  name: rabbitmq2
+  namespace: rabbitmq-system
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 25m
+    rabbitmq.eventing.knative.dev/memory-request: 32Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 50m
+    rabbitmq.eventing.knative.dev/memory-limit: 64Mi
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  rabbitmqResourcesConfig:
+    queueName: "queue-job2"
+    parallelism: 10
+    predeclared: true
+  delivery:
+    retry: 5
+    backoffPolicy: "linear"
+    backoffDelay: "PT1S"
+  sink:
+    ref:
+      apiVersion: sinks.knative.dev/v1alpha1
+      kind: JobSink
+      name: event-display
