@@ -1,0 +1,7 @@
+{
+  "name": "argo-events-operator",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "argo-events-operator"
+  }
+}
