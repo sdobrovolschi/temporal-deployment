@@ -1,0 +1,7 @@
+{
+  "name": "postgresql-operator",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "cnpg-system"
+  }
+}
