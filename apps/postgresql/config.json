@@ -1,0 +1,7 @@
+{
+  "name": "postgresql",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "postgresql-system"
+  }
+}
