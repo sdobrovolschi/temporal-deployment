@@ -1,0 +1,7 @@
+{
+  "name": "clickhouse",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "clickhouse-system"
+  }
+}
