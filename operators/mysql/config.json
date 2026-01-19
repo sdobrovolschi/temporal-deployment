@@ -1,7 +1,0 @@
-{
-  "name": "mysql-operator",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "mysql-operator"
-  }
-}
