@@ -1,7 +1,0 @@
-{
-  "name": "mysql",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "mysql-system"
-  }
-}
