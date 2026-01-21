@@ -1,0 +1,76 @@
+server:
+  frontend:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 512Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    additionalEnv:
+      - name: GOMEMLIMIT
+        value: "440MiB"
+  history:
+    resources:
+      limits:
+        cpu: 800m
+        memory: 1536Mi
+      requests:
+        cpu: 400m
+        memory: 512Mi
+    additionalEnv:
+      - name: GOMEMLIMIT
+        value: "1300MiB"
+  matching:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi
+      requests:
+        cpu: 125m
+        memory: 64Mi
+    additionalEnv:
+      - name: GOMEMLIMIT
+        value: "100MiB"
+  worker:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 25m
+        memory: 64Mi
+  config:
+    persistence:
+      numHistoryShards: 512
+      datastores:
+        default:
+          sql:
+            createDatabase: false
+            manageSchema: true
+            pluginName: postgres12_pgx
+            driverName: postgres12_pgx
+            connectAddr: "postgresql-cluster-rw.postgresql-system.svc.cluster.local:5432"
+            connectProtocol: tcp
+            databaseName: temporal
+            user: app
+            password: WrKEYRK0xVfC1DP5ZOjoEh1ChtKWe4cMqlQvEBIaZtmoYcE4RVBL4y6xT0QfhVY3
+            maxConns: 20
+            maxIdleConns: 20
+            maxConnLifetime: 1h
+        visibility:
+          sql:
+            createDatabase: false
+            manageSchema: true
+            pluginName: postgres12_pgx
+            driverName: postgres12_pgx
+            connectAddr: "postgresql-cluster-rw.postgresql-system.svc.cluster.local:5432"
+            connectProtocol: tcp
+            databaseName: temporal_visibility
+            user: app
+            password: WrKEYRK0xVfC1DP5ZOjoEh1ChtKWe4cMqlQvEBIaZtmoYcE4RVBL4y6xT0QfhVY3
+            maxConns: 5
+            maxIdleConns: 5
+            maxConnLifetime: 1h
+    namespaces:
+      create: true

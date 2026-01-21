@@ -1,0 +1,9 @@
+server:
+  frontend:
+    replicaCount: 2
+  history:
+    replicaCount: 2
+  matching:
+    replicaCount: 2
+  worker:
+    replicaCount: 1
