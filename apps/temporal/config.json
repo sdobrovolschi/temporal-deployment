@@ -1,0 +1,7 @@
+{
+  "name": "temporal",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "temporal"
+  }
+}
