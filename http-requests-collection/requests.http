@@ -1,0 +1,75 @@
+### Subscribe
+POST https://demo.dittofeed.com/api/public/apps/track
+Authorization: Basic NmNkNTY2MjgtMDViMS00OWVjLWE3NjAtYWRlZTI1YmMxMWRjOjNhZGNhOTcxNGM5OTFlZDM=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "DFSubscriptionChange",
+  "userId": "9df8b7bf-ef4c-48a2-af4a-47d283498a82",
+  "properties": {
+    "subscriptionId": "97a9b81d-ff92-4dac-a25a-6c5beae25cfa",
+    "action": "Subscribe"
+  }
+}
+
+### Unsubscribe
+POST https://demo.dittofeed.com/api/public/apps/track
+Authorization: Basic NmNkNTY2MjgtMDViMS00OWVjLWE3NjAtYWRlZTI1YmMxMWRjOjNhZGNhOTcxNGM5OTFlZDM=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "DFSubscriptionChange",
+  "userId": "9df8b7bf-ef4c-48a2-af4a-47d283498a82",
+  "properties": {
+    "subscriptionId": "97a9b81d-ff92-4dac-a25a-6c5beae25cfa",
+    "action": "Unsubscribe"
+  }
+}
+
+### Ingest FinancialStressDetected
+POST https://demo.dittofeed.com/api/public/apps/track
+Authorization: Basic NmNkNTY2MjgtMDViMS00OWVjLWE3NjAtYWRlZTI1YmMxMWRjOjNhZGNhOTcxNGM5OTFlZDM=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "FinancialStressDetected",
+  "userId": "9df8b7bf-ef4c-48a2-af4a-47d283498a82",
+  "properties": {
+    "type": "insufficient_funds",
+    "amount": {
+      "value": 1275.25,
+      "currency": "MDL"
+    }
+  }
+}
+
+### Ingest CreditOfferAvailable
+POST https://demo.dittofeed.com/api/public/apps/track
+Authorization: Basic NmNkNTY2MjgtMDViMS00OWVjLWE3NjAtYWRlZTI1YmMxMWRjOjNhZGNhOTcxNGM5OTFlZDM=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "CreditOfferEvaluated",
+  "userId": "9df8b7bf-ef4c-48a2-af4a-47d283498a82",
+  "properties": {
+    "type": "offer_granted"
+  }
+}
+
+### Ingest CreditOfferConsentRevoked
+POST https://demo.dittofeed.com/api/public/apps/track
+Authorization: Basic NmNkNTY2MjgtMDViMS00OWVjLWE3NjAtYWRlZTI1YmMxMWRjOjNhZGNhOTcxNGM5OTFlZDM=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "CreditOfferEvaluated",
+  "userId": "9df8b7bf-ef4c-48a2-af4a-47d283498a82",
+  "properties": {
+    "type": "consent_revoked"
+  }
+}
