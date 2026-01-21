@@ -1,0 +1,40 @@
+server:
+  config:
+    persistence:
+      default:
+        driver: sql
+        sql:
+          driver: postgres12_pgx
+          host: postgresql-cluster-rw.postgresql-system.svc.cluster.local
+          port: 5432
+          database: temporal
+          user: app
+          password: VjWXmyAwud8GlC1MiexWe7qymxSOk9QXg5mEldzN6o1bbpOURoQ47dgxx9fvmbxT
+          maxConns: 10
+          maxIdleConns: 5
+          maxConnLifetime: 1h
+      visibility:
+        driver: sql
+        sql:
+          driver: postgres12_pgx
+          host: postgresql-cluster-rw.postgresql-system.svc.cluster.local
+          port: 5432
+          database: temporal_visibility
+          user: app
+          password: VjWXmyAwud8GlC1MiexWe7qymxSOk9QXg5mEldzN6o1bbpOURoQ47dgxx9fvmbxT
+          maxConns: 10
+          maxIdleConns: 5
+          maxConnLifetime: 1h
+    namespaces:
+      create: true
+schema:
+  createDatabase:
+    enabled: false
+cassandra:
+  enabled: false
+elasticsearch:
+  enabled: false
+prometheus:
+  enabled: false
+grafana:
+  enabled: false
