@@ -10,3 +10,4 @@ helmCharts:
     additionalValuesFiles:
     - replicas.yaml
     - version.yaml
+    - namespaces.yaml
