@@ -4,3 +4,4 @@ resources:
 - postgresql.yaml
 - database-temporal.yaml
 - database-temporal-visibility.yaml
+- database-dittofeed.yaml
