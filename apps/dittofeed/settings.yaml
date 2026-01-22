@@ -1,0 +1,27 @@
+env:
+  - name: DATABASE_HOST
+    value: postgresql-cluster-rw.postgresql-system.svc.cluster.local
+  - name: DATABASE_PORT
+    value: "5432"
+#  - name: DATABASE
+#    value: dittofeed
+  - name: DATABASE_USER
+    value: app
+  - name: DATABASE_PASSWORD
+    value: Cz67sW3yuc2XnVvo0uqe4gXZo7DE9glBCJICogtNoOiNxXRtMScTNFOaqosX7uW0
+  - name: CLICKHOUSE_HOST
+    value: http://chi-clickhouse-main-0-0.clickhouse-operator.svc.cluster.local:8123
+  - name: CLICKHOUSE_USER
+    value: app
+  - name: CLICKHOUSE_PASSWORD
+    value: qwerty
+#  - name: CLICKHOUSE_DATABASE
+#    value: dittofeed
+  - name: BOOTSTRAP
+    value: "true"
+  - name: TEMPORAL_ADDRESS
+    value: release-name-temporal-frontend-headless.temporal.svc.cluster.local:7233
+  - name: TEMPORAL_NAMESPACE
+    value: dittofeed
+  - name: PASSWORD
+    value: "1234"
