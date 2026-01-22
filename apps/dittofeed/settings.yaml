@@ -1,0 +1,62 @@
+separateWorker:
+  enabled: false
+  default:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  workspace:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  global:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+env:
+  - name: DATABASE_HOST
+    value: postgresql-cluster-rw.postgresql-system.svc.cluster.local
+  - name: DATABASE_PORT
+    value: "5432"
+  - name: DATABASE_NAME
+    value: dittofeed
+  - name: DATABASE_USER
+    value: postgres
+  - name: DATABASE_PASSWORD
+    value: 7FahOz5UXIaQ65tbsLxyQg4oIxnBpIfT1ZWc8TRecNKCmAfq7i0hSjsoIEY8PETV
+  - name: CLICKHOUSE_HOST
+    value: http://chi-clickhouse-main-0-0.clickhouse-operator.svc.cluster.local:8123
+  - name: CLICKHOUSE_USER
+    value: app
+  - name: CLICKHOUSE_PASSWORD
+    value: qwerty
+  - name: CLICKHOUSE_DATABASE
+    value: dittofeed
+  - name: TEMPORAL_ADDRESS
+    value: release-name-temporal-frontend-headless.temporal.svc.cluster.local:7233
+  - name: TEMPORAL_NAMESPACE
+    value: dittofeed
+  - name: PASSWORD
+    value: "1234"
+  - name: BOOTSTRAP
+    value: "true"
+  - name: LOG_LEVEL
+    value: info
+  - name: COMPUTE_PROPERTIES_INTERVAL
+    value: "10000"
+  - name: COMPUTE_PROPERTIES_SCHEDULER_INTERVAL
+    value: "30000"
