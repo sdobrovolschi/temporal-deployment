@@ -1,0 +1,9 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: dittofeed
+spec:
+  name: dittofeed
+  owner: app
+  cluster:
+    name: postgresql-cluster
