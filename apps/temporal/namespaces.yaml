@@ -1,0 +1,6 @@
+server:
+  config:
+    namespaces:
+      namespace:
+      - name: dittofeed
+        retention: 3d
