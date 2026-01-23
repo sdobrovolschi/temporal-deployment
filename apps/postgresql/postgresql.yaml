@@ -8,3 +8,4 @@ spec:
   logLevel: info
   storage:
     size: 1Gi
+  enableSuperuserAccess: true
