@@ -15,8 +15,6 @@ env:
     value: app
   - name: CLICKHOUSE_PASSWORD
     value: qwerty
-#  - name: CLICKHOUSE_DATABASE
-#    value: dittofeed
 #  - name: BOOTSTRAP
 #    value: "false"
   - name: TEMPORAL_ADDRESS
