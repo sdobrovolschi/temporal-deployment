@@ -3,8 +3,8 @@ env:
     value: postgresql-cluster-rw.postgresql-system.svc.cluster.local
   - name: DATABASE_PORT
     value: "5432"
-#  - name: DATABASE
-#    value: dittofeed
+  - name: DATABASE
+    value: dittofeed
   - name: DATABASE_USER
     value: app
   - name: DATABASE_PASSWORD
