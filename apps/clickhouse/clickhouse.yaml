@@ -19,3 +19,13 @@ spec:
           replicasCount: 1
         templates:
           podTemplate: clickhouse-pod-template
+    files:
+      config.d/create_database.sql: |
+        CREATE DATABASE IF NOT EXISTS dittofeed;
+    users:
+      app/networks/ip: "::/0"
+      app/password: qwerty
+      app/profile: default
+      app/grants/query:
+      - "GRANT CREATE DATABASE ON *.*"
+      - "GRANT SELECT,INSERT,ALTER,CREATE,DROP,TRUNCATE,OPTIMIZE,SHOW,dictGet,REMOTE ON *.*"
