@@ -17,8 +17,8 @@ env:
     value: qwerty
 #  - name: CLICKHOUSE_DATABASE
 #    value: dittofeed
-  - name: BOOTSTRAP
-    value: "true"
+#  - name: BOOTSTRAP
+#    value: "false"
   - name: TEMPORAL_ADDRESS
     value: release-name-temporal-frontend-headless.temporal.svc.cluster.local:7233
   - name: TEMPORAL_NAMESPACE
