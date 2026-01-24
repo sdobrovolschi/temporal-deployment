@@ -1,3 +1,32 @@
+separateWorker:
+  enabled: true
+  default:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  workspace:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+  global:
+    replicaCount: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
 env:
   - name: DATABASE_HOST
     value: postgresql-cluster-rw.postgresql-system.svc.cluster.local
