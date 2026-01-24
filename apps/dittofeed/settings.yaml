@@ -52,3 +52,5 @@ env:
     value: dittofeed
   - name: PASSWORD
     value: "1234"
+  - name: COMPUTE_PROPERTIES_INTERVAL
+    value: "10000"
