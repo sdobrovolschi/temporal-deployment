@@ -32,7 +32,7 @@ env:
     value: postgresql-cluster-rw.postgresql-system.svc.cluster.local
   - name: DATABASE_PORT
     value: "5432"
-  - name: DATABASE
+  - name: DATABASE_NAME
     value: dittofeed
   - name: DATABASE_USER
     value: postgres
@@ -44,13 +44,19 @@ env:
     value: app
   - name: CLICKHOUSE_PASSWORD
     value: qwerty
-#  - name: BOOTSTRAP
-#    value: "false"
+  - name: CLICKHOUSE_DATABASE
+    value: dittofeed
   - name: TEMPORAL_ADDRESS
     value: release-name-temporal-frontend-headless.temporal.svc.cluster.local:7233
   - name: TEMPORAL_NAMESPACE
     value: dittofeed
   - name: PASSWORD
     value: "1234"
+  #  - name: BOOTSTRAP
+  #    value: "false"
+  - name: LOG_LEVEL
+    value: info
   - name: COMPUTE_PROPERTIES_INTERVAL
     value: "10000"
+  - name: COMPUTE_PROPERTIES_SCHEDULER_INTERVAL
+    value: "30000"
