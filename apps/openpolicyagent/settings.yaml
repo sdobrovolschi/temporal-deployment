@@ -1,0 +1,5 @@
+mgmt:
+  enabled: false
+image:
+  tag: 1.13.0
+useHttps: false
