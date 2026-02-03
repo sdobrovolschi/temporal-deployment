@@ -1,0 +1,7 @@
+{
+  "name": "rudderstack",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "rudderstack"
+  }
+}

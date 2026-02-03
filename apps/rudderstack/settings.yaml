@@ -1,0 +1,5 @@
+rudderWorkspaceToken: 39Aq6i99hykyCVuXVjsuz5LxLPE
+telegraf_sidecar:
+  enabled: false
+persistence:
+  size: 1Gi
