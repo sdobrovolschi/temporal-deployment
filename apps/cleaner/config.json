@@ -1,7 +1,0 @@
-{
-  "name": "cleaner",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "operational-system"
-  }
-}
