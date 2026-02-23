@@ -1,7 +1,0 @@
-{
-  "name": "argo-events",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "argo-events"
-  }
-}
