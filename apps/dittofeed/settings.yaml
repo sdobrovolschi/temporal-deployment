@@ -1,5 +1,5 @@
 separateWorker:
-  enabled: false
+  enabled: true
   default:
     replicaCount: 1
     resources:
@@ -53,7 +53,7 @@ env:
   - name: PASSWORD
     value: "1234"
   - name: BOOTSTRAP
-    value: "true"
+    value: "false"
   - name: LOG_LEVEL
     value: info
   - name: COMPUTE_PROPERTIES_INTERVAL
