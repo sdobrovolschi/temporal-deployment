@@ -26,6 +26,13 @@ spec:
       name: event-transformer
 
 ---
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: dittofeed
+  namespace: rabbitmq-system
+
+---
 apiVersion: eventing.knative.dev/v1alpha1
 kind: EventTransform
 metadata:
@@ -37,10 +44,29 @@ spec:
       {
         "specversion": "1.0",
         "id": id,                     
-        "type": data.eventType,
+        "type": data.event,
         "source": "transform.event-transformer",
         "time": time,
         "data": data
       }
   sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1
+      kind: Broker
+      name: dittofeed
+
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: event-filter
+  namespace: rabbitmq-system
+spec:
+  broker: dittofeed
+  filters:
+  - any:
+    - exact:
+        type: travelPurchaseMade
+  subscriber:
     uri: https://webhook.site/91dcfbe7-cf6f-4a6c-a75b-d00d6aa58bd6
+#    uri: http://release-name-dittofeed.dittofeed.svc.cluster.local/api/public/apps/track
