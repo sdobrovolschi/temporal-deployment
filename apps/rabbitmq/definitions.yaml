@@ -1,0 +1,39 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: exchange-event
+  namespace: rabbitmq-system
+spec:
+  name: exchange-event
+  type: fanout
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: queue-dittofeed
+  namespace: rabbitmq-system
+spec:
+  name: queue-dittofeed
+  autoDelete: false
+  durable: true
+  type: quorum
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: binding-queue-dittofeed
+  namespace: rabbitmq-system
+spec:
+  source: exchange-event
+  destination: queue-dittofeed
+  destinationType: queue
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
