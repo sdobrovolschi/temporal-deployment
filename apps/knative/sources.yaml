@@ -1,0 +1,46 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: RabbitmqSource
+metadata:
+  name: rabbitmq
+  namespace: rabbitmq-system
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 25m
+    rabbitmq.eventing.knative.dev/memory-request: 32Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 50m
+    rabbitmq.eventing.knative.dev/memory-limit: 64Mi
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  rabbitmqResourcesConfig:
+    queueName: "queue-dittofeed"
+    parallelism: 10
+    predeclared: true
+  delivery:
+    retry: 5
+    backoffPolicy: "linear"
+    backoffDelay: "PT1S"
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1alpha1
+      kind: EventTransform
+      name: event-transformer
+
+---
+apiVersion: eventing.knative.dev/v1alpha1
+kind: EventTransform
+metadata:
+  name: event-transformer
+  namespace: rabbitmq-system
+spec:
+  jsonata:
+    expression: |
+      {
+        "specversion": "1.0",
+        "id": id,                     
+        "type": data.eventType,
+        "source": "transform.event-transformer",
+        "time": time,
+        "data": data
+      }
+  sink:
+    uri: https://webhook.site/91dcfbe7-cf6f-4a6c-a75b-d00d6aa58bd6
