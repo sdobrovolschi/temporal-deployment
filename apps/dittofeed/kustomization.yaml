@@ -9,3 +9,6 @@ helmCharts:
     additionalValuesFiles:
     - replicas.yaml
     - version.yaml
+resources:
+  - knative-sink.yaml
+  - ingestion.yaml

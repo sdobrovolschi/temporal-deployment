@@ -1,0 +1,77 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: default
+  namespace: dittofeed
+
+---
+apiVersion: sources.knative.dev/v1alpha1
+kind: RabbitmqSource
+metadata:
+  name: rabbitmq
+  namespace: dittofeed
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 25m
+    rabbitmq.eventing.knative.dev/memory-request: 32Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 50m
+    rabbitmq.eventing.knative.dev/memory-limit: 64Mi
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+    namespace: rabbitmq-system
+  rabbitmqResourcesConfig:
+    queueName: "queue-dittofeed"
+    parallelism: 10
+    predeclared: true
+  delivery:
+    retry: 5
+    backoffPolicy: "linear"
+    backoffDelay: "PT1S"
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1alpha1
+      kind: EventTransform
+      name: event-transformer
+
+---
+apiVersion: eventing.knative.dev/v1alpha1
+kind: EventTransform
+metadata:
+  name: event-transformer
+  namespace: dittofeed
+spec:
+  jsonata:
+    expression: |
+      {
+        "specversion": "1.0",
+        "id": id,                     
+        "type": data.event,
+        "source": "transform.event-transformer",
+        "time": time,
+        "data": data
+      }
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1
+      kind: Broker
+      name: default
+
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: event-filter
+  namespace: dittofeed
+spec:
+  broker: default
+  filters:
+    - any:
+        - exact:
+            type: travelPurchaseMade
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: dittofeed-sink
+      namespace: dittofeed
+    uri: /api/public/apps/track
