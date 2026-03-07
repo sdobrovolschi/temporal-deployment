@@ -1,0 +1,7 @@
+{
+  "name": "cert-manager",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "cert-manager"
+  }
+}
