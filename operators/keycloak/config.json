@@ -1,0 +1,7 @@
+{
+  "name": "keycloak-operator",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "keycloak"
+  }
+}
