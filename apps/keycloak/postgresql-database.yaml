@@ -1,0 +1,20 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: keycloak-db
+  namespace: postgresql-system
+spec:
+  name: keycloak-db
+  owner: app
+  cluster:
+    name: postgresql-cluster
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: keycloak-db-secret
+type: Opaque
+stringData:
+  username: app
+  password: VjWXmyAwud8GlC1MiexWe7qymxSOk9QXg5mEldzN6o1bbpOURoQ47dgxx9fvmbxT
