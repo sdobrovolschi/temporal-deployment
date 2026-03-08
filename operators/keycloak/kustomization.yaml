@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- keycloaks.k8s.keycloak.org-v1-v26.5.5.yaml
+- keycloakrealmimports.k8s.keycloak.org-v1-v26.5.5.yaml
+- kubernetes-v26.5.5.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: keycloak-operator
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: keycloak-operator
+      spec:
+        template:
+          spec:
+            containers:
+              - name: keycloak-operator
+                resources:
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+                  limits:
+                    cpu: 200m
+                    memory: 256Mi
