@@ -1,0 +1,30 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    url: jdbc:postgresql://postgresql-cluster-rw.postgresql-system.svc.cluster.local:5432/keycloak-db
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+  http:
+    httpEnabled: true
+  hostname:
+    strict: false
+  bootstrapAdmin:
+    user:
+      secret: keycloak-initial-admin
+#  resources:
+#    requests:
+#      cpu: 500m
+#      memory: 512Mi
+#    limits:
+#      cpu: 500m
+#      memory: 756Mi
+#  startOptimized: true
