@@ -16,6 +16,7 @@ spec:
   http:
     httpEnabled: true
   hostname:
+    hostname: keycloak.localhost
     strict: false
   bootstrapAdmin:
     user:
