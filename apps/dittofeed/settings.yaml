@@ -73,14 +73,14 @@ env:
   - name: SIGNOUT_URL
     value: '/dashboard/signout'
   - name: OPEN_ID_ISSUER
-    value: 'http://localhost:8585/realms/users'
+    value: 'http://keycloak.localhost:8080/realms/users'
   - name: OPEN_ID_AUTHORIZATION_URL
-    value: 'http://localhost:8585/realms/users/protocol/openid-connect/auth'
+    value: 'http://keycloak.localhost:8080/realms/users/protocol/openid-connect/auth'
   - name: OPEN_ID_TOKEN_URL
-    value: 'http://localhost:8585/realms/users/protocol/openid-connect/token'
+    value: 'http://keycloak.localhost:8080/realms/users/protocol/openid-connect/token'
   - name: OPEN_ID_USER_INFO_URL
-    value: 'http://localhost:8585/realms/users/protocol/openid-connect/userinfo'
+    value: 'http://keycloak.localhost:8080/realms/users/protocol/openid-connect/userinfo'
   - name: OPEN_ID_END_SESSION_ENDPOINT
-    value: 'http://localhost:8585/realms/users/protocol/openid-connect/logout'
+    value: 'http://keycloak.localhost:8080/realms/users/protocol/openid-connect/logout'
   - name: OPEN_ID_RETURN_TO_QUERY_PARAM
     value: 'post_logout_redirect_uri'
