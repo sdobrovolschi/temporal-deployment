@@ -60,3 +60,27 @@ env:
     value: "10000"
   - name: COMPUTE_PROPERTIES_SCHEDULER_INTERVAL
     value: "30000"
+  - name: OPEN_ID_CLIENT_ID
+    value: dittofeed
+  - name: OPEN_ID_CLIENT_SECRET
+    value: S3FePXTWteNddayuSNZdaKPlCVE6N7VD
+  - name: SECRET_KEY
+    value: 5O3pMiEo3fjqh17XT676BUnXxMZ5/K/fvmPoGiDIVu0=
+  - name: AUTH_MODE
+    value: 'multi-tenant'
+  - name: AUTH_PROVIDER
+    value: 'keycloak'
+  - name: SIGNOUT_URL
+    value: '/dashboard/signout'
+  - name: OPEN_ID_ISSUER
+    value: 'http://localhost:8585/realms/users'
+  - name: OPEN_ID_AUTHORIZATION_URL
+    value: 'http://localhost:8585/realms/users/protocol/openid-connect/auth'
+  - name: OPEN_ID_TOKEN_URL
+    value: 'http://localhost:8585/realms/users/protocol/openid-connect/token'
+  - name: OPEN_ID_USER_INFO_URL
+    value: 'http://localhost:8585/realms/users/protocol/openid-connect/userinfo'
+  - name: OPEN_ID_END_SESSION_ENDPOINT
+    value: 'http://localhost:8585/realms/users/protocol/openid-connect/logout'
+  - name: OPEN_ID_RETURN_TO_QUERY_PARAM
+    value: 'post_logout_redirect_uri'
