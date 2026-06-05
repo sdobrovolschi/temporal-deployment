@@ -1,0 +1,7 @@
+{
+  "name": "argo-rollouts",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "argo-rollouts"
+  }
+}
