@@ -1,0 +1,7 @@
+{
+  "name": "service",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "service"
+  }
+}
