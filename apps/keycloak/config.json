@@ -1,7 +1,0 @@
-{
-  "name": "keycloak",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "keycloak"
-  }
-}
