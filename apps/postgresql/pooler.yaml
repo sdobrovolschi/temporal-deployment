@@ -1,0 +1,31 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgresql-cluster-pooler-rw
+  namespace: postgresql-system
+spec:
+  cluster:
+    name: postgresql-cluster
+  instances: 2
+  type: rw
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "10"
+      max_db_connections: "5"
+      default_pool_size: "2"
+      reserve_pool_size: "1"
+      reserve_pool_timeout: "1"
+#      so_reuseport: "1"
+      max_prepared_statements: "200"
+  template:
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
