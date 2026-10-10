@@ -1,0 +1,7 @@
+{
+  "name": "prometheus",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "observability"
+  }
+}
