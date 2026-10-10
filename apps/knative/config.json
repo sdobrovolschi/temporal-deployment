@@ -1,7 +1,0 @@
-{
-  "name": "knative-eventing",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "knative-eventing"
-  }
-}
