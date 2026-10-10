@@ -1,7 +1,0 @@
-{
-  "name": "dittofeed",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "dittofeed"
-  }
-}
