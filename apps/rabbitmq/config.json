@@ -1,7 +1,0 @@
-{
-  "name": "rabbitmq",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "rabbitmq-system"
-  }
-}
