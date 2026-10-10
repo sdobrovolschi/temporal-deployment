@@ -7,3 +7,6 @@ datasources:
       url: http://prometheus-server.observability.svc.cluster.local/
       access: proxy
       isDefault: true
+sidecar:
+  dashboards:
+    enabled: true

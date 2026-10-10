@@ -10,3 +10,12 @@ helmCharts:
     additionalValuesFiles:
     - replicas.yaml
     - version.yaml
+configMapGenerator:
+  - name: grafana-dashboard-temporal-server
+    namespace: observability
+    files:
+    - dashboards/temporal-server.json
+    options:
+      disableNameSuffixHash: true
+      labels:
+        grafana_dashboard: "1"
