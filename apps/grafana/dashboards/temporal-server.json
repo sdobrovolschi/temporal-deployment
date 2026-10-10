@@ -35,6 +35,1165 @@
         "x": 0,
         "y": 0
       },
+      "id": 71,
+      "panels": [],
+      "title": "Scaling",
+      "type": "row"
+    },
+    {
+      "id": 72,
+      "type": "timeseries",
+      "title": "State Transitions",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(state_transition_count_count[1m]))",
+          "legendFormat": "state transitions",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "type": "timeseries",
+      "title": "Request Latency p95 (StartWorkflowExecution)",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.15
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le, operation) (rate(service_latency_bucket{service_name=\"frontend\",operation=\"StartWorkflowExecution\"}[1m])))",
+          "legendFormat": "{{operation}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "type": "timeseries",
+      "title": "Shard Lock Latency p95",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.005
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(lock_latency_bucket[1m])))",
+          "legendFormat": "p95",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "type": "timeseries",
+      "title": "Persistence Latency p95",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.05
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le, service_name) (rate(persistence_latency_bucket{service_name=~\"frontend|history|matching|worker\"}[1m])))",
+          "legendFormat": "{{service_name}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "type": "timeseries",
+      "title": "History CPU % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"temporal\",container=\"temporal-history\"}[5m])) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-history\",resource=\"cpu\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "type": "timeseries",
+      "title": "History Memory % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"temporal\",container=\"temporal-history\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-history\",resource=\"memory\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "type": "timeseries",
+      "title": "PostgreSQL CPU % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"postgresql-system\",container=\"postgres\"}[5m])) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"postgresql-system\",container=\"postgres\",resource=\"cpu\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "type": "timeseries",
+      "title": "PostgreSQL Memory % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"postgresql-system\",container=\"postgres\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"postgresql-system\",container=\"postgres\",resource=\"memory\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "type": "timeseries",
+      "title": "Frontend CPU % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"temporal\",container=\"temporal-frontend\"}[5m])) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-frontend\",resource=\"cpu\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "type": "timeseries",
+      "title": "Frontend Memory % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"temporal\",container=\"temporal-frontend\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-frontend\",resource=\"memory\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "type": "timeseries",
+      "title": "Matching CPU % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"temporal\",container=\"temporal-matching\"}[5m])) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-matching\",resource=\"cpu\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "type": "timeseries",
+      "title": "Matching Memory % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"temporal\",container=\"temporal-matching\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-matching\",resource=\"memory\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "type": "timeseries",
+      "title": "Worker CPU % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 25
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"temporal\",container=\"temporal-worker\"}[5m])) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-worker\",resource=\"cpu\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "type": "timeseries",
+      "title": "Worker Memory % Used",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 25
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (pod) (container_memory_working_set_bytes{namespace=\"temporal\",container=\"temporal-worker\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"temporal\",container=\"temporal-worker\",resource=\"memory\"}) * 100",
+          "legendFormat": "{{pod}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "type": "timeseries",
+      "title": "Persistence Requests",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 25
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(persistence_requests[1m]))",
+          "legendFormat": "requests",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "type": "timeseries",
+      "title": "Poll Sync Rate",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 25
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0.99
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum by (task_type) (rate(poll_success_sync[1m])) / sum by (task_type) (rate(poll_success[1m]))",
+          "legendFormat": "{{task_type}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "type": "timeseries",
+      "title": "Schedule to Start Latency p95",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 33
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.15
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le, task_type) (rate(task_schedule_to_start_latency_bucket{namespace=\"dittofeed\"}[5m])))",
+          "legendFormat": "{{task_type}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "type": "timeseries",
+      "title": "SQL Connection Pool Utilization",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 33
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 10,
+            "showPoints": "never",
+            "spanNulls": false,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.8
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "max by (service_name, db_kind) (persistence_sql_in_use / persistence_sql_max_open_conn)",
+          "legendFormat": "{{service_name}} / {{db_kind}}",
+          "interval": "",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
       "id": 70,
       "panels": [],
       "title": "Temporal Actions",
@@ -53,7 +1212,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 41
       },
       "id": 68,
       "options": {
@@ -87,7 +1246,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 41
       },
       "id": 11,
       "panels": [],
@@ -112,7 +1271,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 2,
@@ -196,7 +1355,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 6,
@@ -281,7 +1440,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 10
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 4,
@@ -365,7 +1524,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 10
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 7,
@@ -479,7 +1638,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 10
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 8,
@@ -575,7 +1734,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 10
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 9,
@@ -651,7 +1810,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 63,
@@ -757,7 +1916,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 65,
@@ -844,7 +2003,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 28
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 54,
@@ -928,7 +2087,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 28
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 55,
@@ -1012,7 +2171,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 28
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 56,
@@ -1096,7 +2255,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 28
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 58,
@@ -1180,7 +2339,7 @@
         "h": 9,
         "w": 6,
         "x": 0,
-        "y": 36
+        "y": 77
       },
       "hiddenSeries": false,
       "id": 57,
@@ -1264,7 +2423,7 @@
         "h": 9,
         "w": 6,
         "x": 6,
-        "y": 36
+        "y": 77
       },
       "hiddenSeries": false,
       "id": 59,
@@ -1348,7 +2507,7 @@
         "h": 9,
         "w": 6,
         "x": 12,
-        "y": 36
+        "y": 77
       },
       "hiddenSeries": false,
       "id": 61,
@@ -1433,7 +2592,7 @@
         "h": 9,
         "w": 6,
         "x": 18,
-        "y": 36
+        "y": 77
       },
       "hiddenSeries": false,
       "id": 66,
@@ -1531,7 +2690,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 86
       },
       "id": 48,
       "panels": [
@@ -1547,7 +2706,7 @@
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 43
           },
           "hiddenSeries": false,
           "id": 45,
@@ -1648,7 +2807,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 12
+            "y": 53
           },
           "hiddenSeries": false,
           "id": 52,
@@ -1725,7 +2884,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 12
+            "y": 53
           },
           "hiddenSeries": false,
           "id": 46,
@@ -1802,7 +2961,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 61
           },
           "hiddenSeries": false,
           "id": 49,
@@ -1879,7 +3038,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 61
           },
           "hiddenSeries": false,
           "id": 50,
@@ -1956,7 +3115,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 28
+            "y": 69
           },
           "hiddenSeries": false,
           "id": 51,
@@ -2031,7 +3190,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 87
       },
       "id": 23,
       "panels": [
@@ -2047,7 +3206,7 @@
             "h": 9,
             "w": 6,
             "x": 0,
-            "y": 3
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 21,
@@ -2130,7 +3289,7 @@
             "h": 9,
             "w": 6,
             "x": 6,
-            "y": 3
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 25,
@@ -2207,7 +3366,7 @@
             "h": 9,
             "w": 6,
             "x": 12,
-            "y": 3
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 27,
@@ -2306,7 +3465,7 @@
             "h": 9,
             "w": 6,
             "x": 18,
-            "y": 3
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 43,
@@ -2383,7 +3542,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 53
           },
           "hiddenSeries": false,
           "id": 29,
@@ -2458,7 +3617,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 88
       },
       "id": 15,
       "panels": [
@@ -2480,7 +3639,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 48
+            "y": 89
           },
           "hiddenSeries": false,
           "id": 13,
@@ -2570,7 +3729,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 48
+            "y": 89
           },
           "hiddenSeries": false,
           "id": 16,
@@ -2654,7 +3813,7 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 48
+            "y": 89
           },
           "hiddenSeries": false,
           "id": 17,
@@ -2738,7 +3897,7 @@
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 58
+            "y": 99
           },
           "hiddenSeries": false,
           "id": 19,
@@ -2815,7 +3974,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 48
+        "y": 89
       },
       "id": 33,
       "panels": [
@@ -2831,7 +3990,7 @@
             "h": 9,
             "w": 9,
             "x": 0,
-            "y": 61
+            "y": 102
           },
           "hiddenSeries": false,
           "id": 31,
@@ -2914,7 +4073,7 @@
             "h": 9,
             "w": 7,
             "x": 9,
-            "y": 61
+            "y": 102
           },
           "hiddenSeries": false,
           "id": 35,
@@ -2991,7 +4150,7 @@
             "h": 9,
             "w": 8,
             "x": 16,
-            "y": 61
+            "y": 102
           },
           "hiddenSeries": false,
           "id": 37,
@@ -3068,7 +4227,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 70
+            "y": 111
           },
           "hiddenSeries": false,
           "id": 39,
