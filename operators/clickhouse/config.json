@@ -1,7 +1,0 @@
-{
-  "name": "clickhouse-operator",
-  "destination": {
-    "name": "in-cluster",
-    "namespace": "clickhouse-operator"
-  }
-}
