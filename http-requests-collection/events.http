@@ -1,0 +1,30 @@
+### Ingest Identity
+POST http://localhost:3000/api/public/apps/identify
+Authorization: Basic ZmUzY2Y4NmYtM2I4OS00ZTUxLWFkNTEtNGQwODkxZTIxYTJkOjRmZDY3MDUxMzk4NGE5ZWI=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "userId": "{{$uuid}}",
+  "traits": {
+    "age": "{{$random.integer(18, 80)}}"
+  }
+}
+
+###
+POST http://localhost:3000/api/public/apps/track
+Authorization: Basic ZmUzY2Y4NmYtM2I4OS00ZTUxLWFkNTEtNGQwODkxZTIxYTJkOjRmZDY3MDUxMzk4NGE5ZWI=
+Content-Type: application/json
+
+{
+  "messageId": "{{$uuid}}",
+  "event": "Purchase",
+  "userId": "{{$random.integer(1, 1000000)}}",
+  "properties": {
+    "transactionId": "{{$random.integer(1, 100000000)}}",
+    "amount": {
+      "value": {{$random.integer(10, 500)}},
+      "currency": "EUR"
+    }
+  }
+}
