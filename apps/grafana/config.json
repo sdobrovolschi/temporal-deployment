@@ -1,0 +1,7 @@
+{
+  "name": "grafana",
+  "destination": {
+    "name": "in-cluster",
+    "namespace": "observability"
+  }
+}
