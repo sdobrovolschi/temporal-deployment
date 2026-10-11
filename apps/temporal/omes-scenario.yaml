@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: omes-scenario
+  labels:
+    app.kubernetes.io/name: omes-scenario
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: omes-scenario
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: omes-scenario
+          image: temporaliotest/omes:cli-dae0843
+          args:
+            - run-scenario
+            - --scenario=throughput_stress
+            - --run-id=load-test
+            - --server-address=temporal-frontend-headless.temporal.svc.cluster.local:7233
+            - --namespace=dittofeed
+            - --duration=2m
+            - --max-concurrent=800
+            - --option=sleep-time=1s
+            - --option=nexus-enabled=false
+            - --option=continue-as-new-after-iterations=50
+            - --option=payload-distribution-json=@/payload.json
+          volumeMounts:
+            - name: payload
+              mountPath: /payload.json
+              subPath: payload.json
+              readOnly: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: payload
+          configMap:
+            name: omes-payload

@@ -13,6 +13,11 @@ helmCharts:
     - namespaces.yaml
 resources:
   - omes-worker.yaml
+  - omes-scenario.yaml
+configMapGenerator:
+  - name: omes-payload
+    files:
+      - payload.json=omes-payload.json
 patches:
   - target:
       kind: Service
