@@ -11,6 +11,8 @@ helmCharts:
     - replicas.yaml
     - version.yaml
     - namespaces.yaml
+resources:
+  - omes-worker.yaml
 patches:
   - target:
       kind: Service
