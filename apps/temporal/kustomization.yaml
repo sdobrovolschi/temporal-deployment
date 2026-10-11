@@ -25,3 +25,4 @@ patches:
     patch: |-
       - op: remove
         path: /metadata/annotations/prometheus.io~1scrape
+  - path: history-datastore-patch.yaml

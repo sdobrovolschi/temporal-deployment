@@ -13,14 +13,16 @@ server:
   history:
     resources:
       limits:
-        cpu: 800m
-        memory: 1536Mi
+        cpu: 1
+        memory: 1664Mi
       requests:
-        cpu: 400m
+        cpu: 500m
         memory: 512Mi
     additionalEnv:
       - name: GOMEMLIMIT
-        value: "1300MiB"
+        value: "1415MiB"
+      - name: TEMPORAL_HISTORY_DEFAULT_STORE_MAX_CONNS
+        value: "70"
   matching:
     resources:
       limits:
@@ -55,8 +57,8 @@ server:
             databaseName: temporal
             user: app
             password: WrKEYRK0xVfC1DP5ZOjoEh1ChtKWe4cMqlQvEBIaZtmoYcE4RVBL4y6xT0QfhVY3
-            maxConns: 20
-            maxIdleConns: 20
+            maxConns: 5
+            maxIdleConns: 3
             maxConnLifetime: 1h
         visibility:
           sql:
@@ -69,8 +71,8 @@ server:
             databaseName: temporal_visibility
             user: app
             password: WrKEYRK0xVfC1DP5ZOjoEh1ChtKWe4cMqlQvEBIaZtmoYcE4RVBL4y6xT0QfhVY3
-            maxConns: 5
-            maxIdleConns: 5
+            maxConns: 3
+            maxIdleConns: 1
             maxConnLifetime: 1h
     namespaces:
       create: true

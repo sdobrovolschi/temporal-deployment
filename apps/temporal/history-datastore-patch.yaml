@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-history
+  namespace: temporal
+spec:
+  template:
+    spec:
+      containers:
+        - name: temporal-history
+          # The chart renders one shared config template for all services. Rewrite
+          # the default datastore's maxConns for the history service only, then
+          # start the server from the rewritten copy.
+          command: ["/bin/sh", "-euc"]
+          args:
+            - |
+              src=/etc/temporal/config/config_template.yaml
+              dst=/tmp/config_template.yaml
+              sed -e "/^[[:space:]]*default:/,/^[[:space:]]*visibility:/ s/^\([[:space:]]*maxConns:\) [0-9][0-9]*\$/\1 ${TEMPORAL_HISTORY_DEFAULT_STORE_MAX_CONNS}/" "$src" > "$dst"
+              if cmp -s "$src" "$dst"; then
+                echo "history default-store maxConns override did not apply" >&2
+                exit 1
+              fi
+              export TEMPORAL_SERVER_CONFIG_FILE_PATH="$dst"
+              exec /etc/temporal/entrypoint.sh
