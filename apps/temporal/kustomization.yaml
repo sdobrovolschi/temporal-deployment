@@ -11,3 +11,10 @@ helmCharts:
     - replicas.yaml
     - version.yaml
     - namespaces.yaml
+patches:
+  - target:
+      kind: Service
+      labelSelector: app.kubernetes.io/headless=true
+    patch: |-
+      - op: remove
+        path: /metadata/annotations/prometheus.io~1scrape
