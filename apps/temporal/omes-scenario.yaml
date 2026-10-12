@@ -24,7 +24,7 @@ spec:
             - --server-address=temporal-frontend-headless.temporal.svc.cluster.local:7233
             - --namespace=dittofeed
             - --duration=2m
-            - --max-concurrent=800
+            - --max-concurrent=50
             - --option=sleep-time=1s
             - --option=nexus-enabled=false
             - --option=continue-as-new-after-iterations=50
